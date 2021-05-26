@@ -4,7 +4,7 @@ spring:
   application:
     name: producer
   rabbitmq:
-    host: 47.110.89.202
+    host: 
     port: 5672 # 5672一般用于信息传递，15672用于web管理
     username: mall
     password: mall
