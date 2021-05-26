@@ -1,0 +1,11 @@
+server:
+  port: 8021
+spring:
+  application:
+    name: producer
+  rabbitmq:
+    host: 47.110.89.202
+    port: 5672
+    username: mall
+    password: mall
+    #    virtual-host: / 默认的host,应该保证用户具有该路径的权限，否则需要自定义用户具有权限的路径
