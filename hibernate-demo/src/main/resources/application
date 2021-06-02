@@ -1,0 +1,53 @@
+
+
+
+server.port=8085
+
+#----------------------database-------------------------
+spring.datasource.url = jdbc:mysql://localhost:3306/person?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+spring.datasource.username = root
+spring.datasource.password = 0002
+com.mysql.cj.jdbc.Driver= com.mysql.jdbc.Driver
+
+
+#server.port=9090
+
+
+
+# ����Ϊ���ӳصĲ������ã�Ӧ�õ�������������Դ��
+# ��ʼ����С����С�����
+spring.datasource.initialSize=5
+spring.datasource.minIdle=5
+spring.datasource.maxActive=20
+# ���û�ȡ���ӵȴ���ʱ��ʱ��
+spring.datasource.maxWait=60000
+# ���ü����òŽ���һ�μ�⣬�����Ҫ�رյĿ������ӣ���λ�Ǻ���
+spring.datasource.timeBetweenEvictionRunsMillis=60000
+# ����һ�������ڳ�����С�����ʱ�䣬��λ�Ǻ���
+spring.datasource.minEvictableIdleTimeMillis=300000
+spring.datasource.validationQuery=SELECT 1 FROM DUAL
+spring.datasource.testWhileIdle=true
+spring.datasource.testOnBorrow=false
+spring.datasource.testOnReturn=false
+# ��PSCache������ָ��ÿ��������PSCache�Ĵ�С
+spring.datasource.poolPreparedStatements=true
+spring.datasource.maxPoolPreparedStatementPerConnectionSize=20
+# ���ü��ͳ�����ص�filters��ȥ�����ؽ���sql�޷�ͳ�ƣ�'wall'���ڷ���ǽ
+spring.datasource.filters=stat,wall,log4j
+# ͨ��connectProperties��������mergeSql���ܣ���SQL��¼
+spring.datasource.connectionProperties=druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+# �ϲ����DruidDataSource�ļ������
+spring.datasource.useGlobalDataSourceStat=true
+
+
+#JPA Configuration:
+spring.jpa.database=MYSQL
+# Show or not log for each sql query
+spring.jpa.show-sql=false
+spring.jpa.generate-ddl=true  
+# Hibernate ddl auto (create, create-drop, update)
+spring.jpa.hibernate.ddl-auto=update
+#spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect
+spring.jpa.hibernate.naming_strategy=org.hibernate.cfg.ImprovedNamingStrategy  
+#spring.jpa.database=org.hibernate.dialect.MySQL5InnoDBDialect
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
