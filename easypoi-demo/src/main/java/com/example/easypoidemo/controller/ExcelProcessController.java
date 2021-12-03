@@ -5,17 +5,11 @@ import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
+import cn.afterturn.easypoi.excel.entity.result.ExcelImportResult;
 import com.alibaba.fastjson.JSON;
 import com.example.easypoidemo.controller.dto.ResponseBody;
-import com.example.easypoidemo.exception.BizException;
 import com.example.easypoidemo.pojo.Student;
-import com.example.easypoidemo.service.StudentService;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,10 +38,15 @@ public class ExcelProcessController {
             ImportParams importParams = new ImportParams();
             //设置需要校验
             importParams.setNeedVerify(true);
-            //从excel表格中提取数据
-            List<Student> studentList = ExcelImportUtil.importExcel(upload.getInputStream(), Student.class, importParams);
+            //从excel表格中提取数据,importExcelMore能够同时获取成功和失败的列
+            ExcelImportResult<Student> result = ExcelImportUtil.importExcelMore(upload.getInputStream(), Student.class, importParams);
+
+            List<Student> studentList=result.getList();
+            List<Student> failStudentList=result.getFailList();
+
             //处理业务逻辑，这儿用打印对象替代
-            System.out.println(JSON.toJSON(studentList));
+            System.out.println("成功"+JSON.toJSON(studentList));
+            System.out.println("失败"+JSON.toJSON(failStudentList));
         }catch (Exception ex){
             return ResponseBody.build(500,null);
         }
@@ -55,11 +54,11 @@ public class ExcelProcessController {
     }
 
     @RequestMapping("/download")
-    public ResponseBody download(HttpServletResponse response) throws BizException {
+    public ResponseBody download(HttpServletResponse response) {
         //构造数据
         List<Student> students=new ArrayList<>();
-        students.add(Student.builder().name("张三").age(18).sex(false).school("PKU").studentNum(1).build());
-        students.add(Student.builder().name("赵六").age(20).sex(true).school("THU").studentNum(2).build());
+        students.add(Student.builder().name("张三").age(18).sex(false).school("PKU").studentNum("1").build());
+        students.add(Student.builder().name("赵六").age(20).sex(true).school("THU").studentNum("2").build());
 
         //设置导出参数
         ExportParams params=new ExportParams();

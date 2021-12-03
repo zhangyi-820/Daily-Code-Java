@@ -7,6 +7,7 @@ import com.example.easypoidemo.pojo.validate.StudentNumCheck;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -19,6 +20,8 @@ import java.util.Objects;
  * @version:
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Student implements IExcelDataModel, IExcelModel {
     @Excel(name = "姓名")
@@ -33,9 +36,8 @@ public class Student implements IExcelDataModel, IExcelModel {
     private Integer age;
 
     @Excel(name = "学号")
-    //自定义校验
-    @StudentNumCheck
-    private Integer studentNum;
+    @StudentNumCheck //自定义校验
+    private String studentNum;
 
     @Excel(name = "学校")
     private String school;
@@ -68,4 +70,5 @@ public class Student implements IExcelDataModel, IExcelModel {
             this.errorMsg=this.errorMsg+s;
         }
     }
+
 }
